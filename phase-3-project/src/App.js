@@ -9,6 +9,9 @@ function App() {
   // const [entries, setEntries] = useState([])
   const [song, setSong] = useState([])
   const [animals, setAnimals] = useState([])
+  const [smells, setSmells] = useState([])
+  const [colors, setColors] = useState([])
+  const [tastes, setTastes] = useState([])
   const [entries, setEntries] = useState([])
 
 
@@ -18,7 +21,6 @@ function App() {
     .then(resp => resp.json())
     .then(data => setEntries(data))
   }, [])
-  
 
 
   useEffect(() => {
@@ -34,13 +36,31 @@ function App() {
     .then(data => setSong(data))
   }, [])
 
+  useEffect(() => {
+    fetch('http://localhost:9292/smells')
+    .then(resp => resp.json())
+    .then(data => setSmells(data))
+  }, [])
 
+  useEffect(() => {
+    fetch('http://localhost:9292/colors')
+    .then(resp => resp.json())
+    .then(data => setColors(data))
+  }, [])
+
+  useEffect(() => {
+    fetch('http://localhost:9292/tastes')
+    .then(resp => resp.json())
+    .then(data => setTastes(data))
+  }, [])
+
+  console.log(song)
 
 
   return (
     <div className="App">
       <Header />
-      <EntryForm song={song} animals={animals} />
+      <EntryForm song={song} animals={animals} smells={smells} tastes={tastes} colors={colors} />
       <EntryTable entries={entries} />
     </div>
   );

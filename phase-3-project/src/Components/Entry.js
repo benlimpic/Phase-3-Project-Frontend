@@ -3,11 +3,12 @@
 const Entry = ( { entry } ) => {
 
     return (
-        <>
-            <li>
-                {entry}
-            </li>
-        </>
+       <>
+            <td>1</td>
+            <td>{entry.song.song_name}</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+       </>
     )
 }
 
