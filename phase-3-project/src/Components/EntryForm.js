@@ -4,25 +4,40 @@ import react, { useState } from 'react'
 
 const EntryForm = ( { animals, smells, tastes, song, colors } ) => {
 
-    const [formData, setFormData] = useState([])
+    const [formData, setFormData] = useState({
+        animalId: '',
+        colorId: '',
+        smellId: '',
+        tasteId: ''
+    })
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
         console.log('handle submit')
     }
 
+    const handleChange = (e) => {
+        const value = e.target.value;
+        const name = e.target.name;
+        console.log(name)
+        setFormData({...formData, [name]: value})
+      }
+
+    console.log(formData)
+    
 
     return (
-        <form onSubmit={() => 'submit me'}>
+        <form onSubmit={handleSubmit}>
         <label>
           Name:
-          <input type="select" value={'value'} onChange={() => 'handle change'} />
-          <select value={'animal'} > 
+          <input type="select" value={'this is where song will be'} onChange={handleChange} />
+          <select name="animalId" value={formData.name} onChange={handleChange} > 
                 <option>What kind of animal is this song?</option>
                 {animals.map(
                     (animal) => {
                         return (
                             <>
-                            <option>
+                            <option value={animal.id}>
                                 {animal.name}
                                 {animal.emoji}
                             </option>
@@ -30,13 +45,13 @@ const EntryForm = ( { animals, smells, tastes, song, colors } ) => {
                         )}
                 )}
             </select>
-            <select value={'color'} > 
+            <select name="colorId" value={formData.name} onChange={handleChange}> 
                 <option>What color is this song?</option>
                 {colors.map(
                     (color) => {
                         return (
                             <>
-                            <option>
+                            <option value={color.id}>
                                 {color.name}
                                 {color.emoji}
                             </option>
@@ -44,13 +59,13 @@ const EntryForm = ( { animals, smells, tastes, song, colors } ) => {
                         )}
                 )}
             </select>
-            <select value={'smell'} > 
+            <select name='smellId' value={formData.name} onChange={handleChange}> 
                 <option>What does this song smell like?</option>
                 {smells.map(
                     (smell) => {
                         return (
                             <>
-                            <option>
+                            <option value={smell.id}>
                                 {smell.name}
                                 {smell.emoji}
                             </option>
@@ -58,13 +73,13 @@ const EntryForm = ( { animals, smells, tastes, song, colors } ) => {
                         )}
                 )}
             </select>
-            <select value={'taste'} > 
+            <select name='tasteId' value={formData.name} onChange={handleChange}> 
                 <option>What does this song taste like?</option>
                 {tastes.map(
                     (taste) => {
                         return (
                             <>
-                            <option>
+                            <option value={taste.id}>
                                 {taste.name}
                                 {taste.emoji}
                             </option>
