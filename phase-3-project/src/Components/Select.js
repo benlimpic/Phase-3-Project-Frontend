@@ -1,9 +1,13 @@
 import react from 'react'
+import { useState, useEffect } from 'react'
 
-const Select = ( { formData, handleChange, things, thingId, thingName }) => {
 
+const Select = ( { value, handleChange, things, thingId, thingName }) => {
+    // useEffect(() => {
+    //     console.log(formData)
+    //   }, [formData])
     return (
-        <select name={thingId} value={formData.name} onChange={handleChange} > 
+        <select name={thingId} value={value} onChange={handleChange} > 
         <option>What kind of {thingName} is this song?</option>
         {things.map(
             (thing) => {

@@ -1,12 +1,8 @@
 import { useEffect } from 'react'
-import Table from 'react-bootstrap/Table'
 
 
-const EntryTable = ( { entries, deleteEntry } ) => {
-    // useEffect(() => {
-    //     console.log(entries)
-    // }, [entries] )
-
+const EntryTable = ( { entries, deleteEntry, enterEditMode } ) => {
+    
     const handleDelete = (id) => {
         fetch(`http://localhost:9292/entries/${id}`, {
           method: "DELETE",
@@ -37,11 +33,16 @@ const EntryTable = ( { entries, deleteEntry } ) => {
                     <td>{entry.smell.emoji}</td>
                     <td>{entry.color.emoji}</td>
                     <td>{entry.animal.emoji}</td>
-                    <td><button>edit me!</button></td>
+                    <td><button onClick={(e) => enterEditMode({
+                        song_id: entry.song_id.toString(),
+                        animal_id: entry.animal_id.toString(),
+                        color_id: entry.color_id.toString(),
+                        smell_id: entry.smell_id.toString(),
+                        taste_id: entry.taste_id.toString()
+                    })}>edit me!</button></td>
                     <td><button onClick={(e) => handleDelete(entry.id)}>delete me!</button></td>
                     </tr>
-                    )
-                    })}
+                )})}
             </tbody>
         </table>
     )
