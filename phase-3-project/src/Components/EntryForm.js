@@ -1,9 +1,10 @@
 import react, { useState } from 'react'
 import Select from './Select'
 
-const EntryForm = ( { animals, smells, tastes, song, colors } ) => {
+const EntryForm = ( { entries, animals, smells, tastes, song, colors, addNewEntry } ) => {
 
     const [formData, setFormData] = useState({
+        songId: '',
         animalId: '',
         colorId: '',
         smellId: '',
@@ -12,82 +13,48 @@ const EntryForm = ( { animals, smells, tastes, song, colors } ) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('handle submit')
+        const entryObj = {
+            song_id: parseInt(formData.songId),
+            animal_id: parseInt(formData.animalId),
+            taste_id: parseInt(formData.tasteId),
+            smell_id: parseInt(formData.smellId),
+            color_id: parseInt(formData.colorId)
+            } 
+            // console.log(entryObj)
+        fetch('http://localhost:9292/entries', {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(entryObj)
+          })
+          .then(response => response.json())
+          .then(data => {
+            addNewEntry(data)
+          } )
     }
+
 
     const handleChange = (e) => {
         const value = e.target.value;
         const name = e.target.name;
-        console.log(name)
+        // console.log(name)
         setFormData({...formData, [name]: value})
       }
 
-    console.log(formData)
-    
+  
 
     return (
         <form onSubmit={handleSubmit}>
         <label>
-          Name:
-          <input type="select" value={'this is where song will be'} onChange={handleChange} />
-          {/* <select name="animalId" value={formData.name} onChange={handleChange} > 
-                <option>What kind of animal is this song?</option>
-                {animals.map(
-                    (animal) => {
-                        return (
-                            <>
-                            <option value={animal.id}>
-                                {animal.name}
-                                {animal.emoji}
-                            </option>
-                            </>
-                        )}
-                )}
-            </select> */}
+          New Entry:
+          {/* <input type="select" value={'this is where song will be'} onChange={handleChange} /> */}
+            <select name='songId' onChange={handleChange} value={formData.name}>
+            <option>Select your random song!</option>
+                <option value={song.id}>{song.song_name}</option>
+            </select>
             <Select formData={formData} handleChange={handleChange} things={animals} thingId={'animalId'} thingName={'animal'} />
-            
-            <select name="colorId" value={formData.name} onChange={handleChange}> 
-                <option>What color is this song?</option>
-                {colors.map(
-                    (color) => {
-                        return (
-                            <>
-                            <option value={color.id}>
-                                {color.name}
-                                {color.emoji}
-                            </option>
-                            </>
-                        )}
-                )}
-            </select>
-            <select name='smellId' value={formData.name} onChange={handleChange}> 
-                <option>What does this song smell like?</option>
-                {smells.map(
-                    (smell) => {
-                        return (
-                            <>
-                            <option value={smell.id}>
-                                {smell.name}
-                                {smell.emoji}
-                            </option>
-                            </>
-                        )}
-                )}
-            </select>
-            <select name='tasteId' value={formData.name} onChange={handleChange}> 
-                <option>What does this song taste like?</option>
-                {tastes.map(
-                    (taste) => {
-                        return (
-                            <>
-                            <option value={taste.id}>
-                                {taste.name}
-                                {taste.emoji}
-                            </option>
-                            </>
-                        )}
-                )}
-            </select>
+            <Select formData={formData} handleChange={handleChange} things={colors} thingId={'colorId'} thingName={'color'} />
+            <Select formData={formData} handleChange={handleChange} things={smells} thingId={'smellId'} thingName={'smell'} />
+            <Select formData={formData} handleChange={handleChange} things={tastes} thingId={'tasteId'} thingName={'taste'} />
         </label>
         <input type="submit" value="Submit" />
       </form>
@@ -95,3 +62,5 @@ const EntryForm = ( { animals, smells, tastes, song, colors } ) => {
 }
 
 export default EntryForm
+
+

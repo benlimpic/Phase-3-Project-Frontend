@@ -6,14 +6,16 @@ import Header from './Components/Header';
 
 function App() {
 
-  // const [entries, setEntries] = useState([])
   const [song, setSong] = useState([])
+  const [entries, setEntries] = useState([])
   const [animals, setAnimals] = useState([])
   const [smells, setSmells] = useState([])
   const [colors, setColors] = useState([])
   const [tastes, setTastes] = useState([])
-  const [entries, setEntries] = useState([])
 
+  useEffect(() => {
+    console.log(entries)
+  }, [entries])
 
 
   useEffect(() => {
@@ -54,14 +56,28 @@ function App() {
     .then(data => setTastes(data))
   }, [])
 
-  console.log(song)
+  const addNewEntry = (entryObj) => {
+    setEntries([...entries, entryObj])
+  }
 
+  const deleteEntry = (id) => {
+    const oneLess = entries.filter((entry) => entry.id !== id)
+    setEntries(oneLess)
+  }
 
   return (
     <div className="App">
       <Header />
-      <EntryForm song={song} animals={animals} smells={smells} tastes={tastes} colors={colors} />
-      <EntryTable entries={entries} />
+      <EntryForm 
+        song={song} 
+        animals={animals} 
+        smells={smells} 
+        tastes={tastes} 
+        colors={colors} 
+        addNewEntry={addNewEntry}
+        entries={entries}
+        />
+      <EntryTable entries={entries} deleteEntry={deleteEntry} />
     </div>
   );
 }

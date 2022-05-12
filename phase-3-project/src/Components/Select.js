@@ -9,7 +9,7 @@ const Select = ( { formData, handleChange, things, thingId, thingName }) => {
             (thing) => {
                 return (
                     <>
-                    <option value={thing.id}>
+                    <option value={thing.id} key={thing.id}>
                         {thing.name}
                         {thing.emoji}
                     </option>
