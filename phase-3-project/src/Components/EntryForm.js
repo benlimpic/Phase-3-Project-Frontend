@@ -1,6 +1,5 @@
 import react, { useState } from 'react'
-
-
+import Select from './Select'
 
 const EntryForm = ( { animals, smells, tastes, song, colors } ) => {
 
@@ -31,7 +30,7 @@ const EntryForm = ( { animals, smells, tastes, song, colors } ) => {
         <label>
           Name:
           <input type="select" value={'this is where song will be'} onChange={handleChange} />
-          <select name="animalId" value={formData.name} onChange={handleChange} > 
+          {/* <select name="animalId" value={formData.name} onChange={handleChange} > 
                 <option>What kind of animal is this song?</option>
                 {animals.map(
                     (animal) => {
@@ -44,7 +43,9 @@ const EntryForm = ( { animals, smells, tastes, song, colors } ) => {
                             </>
                         )}
                 )}
-            </select>
+            </select> */}
+            <Select formData={formData} handleChange={handleChange} things={animals} thingId={'animalId'} thingName={'animal'} />
+            
             <select name="colorId" value={formData.name} onChange={handleChange}> 
                 <option>What color is this song?</option>
                 {colors.map(
