@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react'
 import EntryForm from './Components/EntryForm';
+import EntryFormEdit from './Components/EntryFormEdit';
 import EntryTable from './Components/EntryTable';
 import Header from './Components/Header';
 
@@ -12,10 +13,27 @@ function App() {
   const [smells, setSmells] = useState([])
   const [colors, setColors] = useState([])
   const [tastes, setTastes] = useState([])
+  const [isEdit, setIsEdit] = useState(false)
+
+  const emptyForm = {
+    song_id: '',
+    animal_id: '',
+    color_id: '',
+    smell_id: '',
+    taste_id: ''
+  }
+
+  const [formData, setFormData] = useState(emptyForm)
+  const [editForm, setEditForm] = useState(emptyForm)
+
 
   useEffect(() => {
     console.log(entries)
   }, [entries])
+
+  useEffect(() => {
+    console.log(editForm)
+  }, [editForm])
 
 
   useEffect(() => {
@@ -65,6 +83,30 @@ function App() {
     setEntries(oneLess)
   }
 
+  const enterEditMode = (entryObj) => {
+    if (!isEdit) {
+      setIsEdit(true)
+      setFormData(entryObj)
+  } else {
+    setEditForm(entryObj)
+  }
+}
+
+
+  useEffect(() => {
+    
+    console.log(formData)
+  }, [formData])
+
+
+
+  // const exitEditMode = () => {
+  //   if (isEdit) {
+  //     setIsEdit(false)
+  //   }
+  // }
+
+
   return (
     <div className="App">
       <Header />
@@ -76,8 +118,18 @@ function App() {
         colors={colors} 
         addNewEntry={addNewEntry}
         entries={entries}
-        />
-      <EntryTable entries={entries} deleteEntry={deleteEntry} />
+        emptyForm={emptyForm}
+        isEdit={isEdit}
+        formData={formData}
+        editForm={editForm}
+        setFormData={setFormData}
+        /> 
+      <EntryTable 
+        entries={entries} 
+        deleteEntry={deleteEntry} 
+        enterEditMode={enterEditMode} 
+        // formState={formState}
+         />
     </div>
   );
 }
