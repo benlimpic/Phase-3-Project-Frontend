@@ -6,6 +6,7 @@ const Select = ( { value, handleChange, things, thingId, thingName }) => {
     // useEffect(() => {
     //     console.log(formData)
     //   }, [formData])
+    
     return (
         <select name={thingId} value={value} onChange={handleChange} > 
         <option>What kind of {thingName} is this song?</option>
