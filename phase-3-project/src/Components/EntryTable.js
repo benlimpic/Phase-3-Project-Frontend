@@ -38,7 +38,8 @@ const EntryTable = ( { entries, deleteEntry, enterEditMode } ) => {
                         animal_id: entry.animal_id.toString(),
                         color_id: entry.color_id.toString(),
                         smell_id: entry.smell_id.toString(),
-                        taste_id: entry.taste_id.toString()
+                        taste_id: entry.taste_id.toString(),
+                        id: entry.id.toString()
                     })}>edit me!</button></td>
                     <td><button onClick={(e) => handleDelete(entry.id)}>delete me!</button></td>
                     </tr>

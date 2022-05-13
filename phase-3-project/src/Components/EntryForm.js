@@ -1,7 +1,7 @@
 import react, { useState, useEffect } from 'react'
 import Select from './Select'
 
-const EntryForm = ( { isEdit, emptyForm, entries, animals, smells, tastes, song, colors, addNewEntry, exitEditMode, formData, setFormData, editForm} ) => {
+const EntryForm = ( { isEdit, emptyForm, entries, animals, smells, tastes, songs, colors, addNewEntry, exitEditMode, formData, setFormData, editForm, getEntries} ) => {
 
 
     useEffect(() => {
@@ -32,20 +32,37 @@ const EntryForm = ( { isEdit, emptyForm, entries, animals, smells, tastes, song,
         .then(response => response.json())
         .then(data => {
           addNewEntry(data)
+          setFormData({
+            song_id: '',
+            animal_id: '',
+            color_id: '',
+            smell_id: '',
+            taste_id: ''
+          })
         } )
       } else {
-        return null
+        // return null
         // setFormData(editForm)
-        // console.log(editForm)
-        // fetch(`http://localhost:9292/entries/${editForm.id}`, {
-        //       method: "PATCH",
-        //       headers: {
-        //         "Content-Type": "application/json",
-        //       },
-        //       body: JSON.stringify(editForm),
-        //     })
-        // .then((r) => r.json())
-        // .then((updatedEntry) => console.log(updatedEntry)); 
+        console.log(formData.id)
+        // console.log(editForm.id)
+        fetch(`http://localhost:9292/entries/${formData.id}`, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            })
+        .then((r) => r.json())
+        .then((updatedEntry) => {
+          getEntries();
+          setFormData({
+            song_id: '',
+            animal_id: '',
+            color_id: '',
+            smell_id: '',
+            taste_id: ''
+          })
+        }); 
       }
     }
 
@@ -79,10 +96,22 @@ const EntryForm = ( { isEdit, emptyForm, entries, animals, smells, tastes, song,
         <form onSubmit={handleSubmit}>
         <label>
           New Entry:
-            <select name='songId' onChange={handleChange} value={formData.name}>
-            <option>Select your random song!</option>
+            {/* <select name='song_id' onChange={handleChange} value={formData.song_id}>
                 <option value={song.id}>{song.song_name}</option>
-            </select>
+            </select> */}
+            <select name={'song_id'} value={formData.song_id} onChange={handleChange} > 
+              <option>Select a song!</option>
+              {songs.map(
+                  (song) => {
+                    return (
+                        <>
+                        <option value={song.id} key={song.id}>
+                            {song.song_name}
+                        </option>
+                        </>
+                    )}
+                  )}
+             </select>
             <Select value={formData.animal_id} handleChange={handleChange} things={animals} thingId={'animal_id'} thingName={'animal'} />
             <Select value={formData.color_id} handleChange={handleChange} things={colors} thingId={'color_id'} thingName={'color'} />
             <Select value={formData.smell_id} handleChange={handleChange} things={smells} thingId={'smell_id'} thingName={'smell'} />
