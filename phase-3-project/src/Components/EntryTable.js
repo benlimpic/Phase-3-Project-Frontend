@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-
+import './EntryTable.css'
 
 const EntryTable = ( { entries, deleteEntry, enterEditMode } ) => {
     
@@ -22,6 +22,8 @@ const EntryTable = ( { entries, deleteEntry, enterEditMode } ) => {
                 <th>Smell</th>
                 <th>Color</th>
                 <th>Animal</th>
+                <th>Edit</th>
+                <th>Delete</th>
                 </tr>
                 {entries.map((entry) => {
                 return (
@@ -40,8 +42,8 @@ const EntryTable = ( { entries, deleteEntry, enterEditMode } ) => {
                         smell_id: entry.smell_id.toString(),
                         taste_id: entry.taste_id.toString(),
                         id: entry.id.toString()
-                    })}>edit me!</button></td>
-                    <td><button onClick={(e) => handleDelete(entry.id)}>delete me!</button></td>
+                    })}><i class="fa-solid fa-pen-to-square"></i></button></td>
+                    <td><button onClick={(e) => handleDelete(entry.id)}><i class="fa-solid fa-ban"></i></button></td>
                     </tr>
                 )})}
             </tbody>

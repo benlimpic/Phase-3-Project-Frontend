@@ -1,5 +1,6 @@
 import react, { useState } from 'react'
 import Select from './Select'
+import './EntryFormEdit.css'
 
 const EntryFormEdit = ( { entries, animals, smells, tastes, song, colors, exitEditMode, form } ) => {
 

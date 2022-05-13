@@ -1,5 +1,6 @@
 import react, { useState, useEffect } from 'react'
 import Select from './Select'
+import './EntryForm.css'
 
 const EntryForm = ( { isEdit, emptyForm, entries, animals, smells, tastes, songs, colors, addNewEntry, exitEditMode, formData, setFormData, editForm, getEntries} ) => {
 
@@ -95,7 +96,8 @@ const EntryForm = ( { isEdit, emptyForm, entries, animals, smells, tastes, songs
     return (
         <form onSubmit={handleSubmit}>
         <label>
-          New Entry:
+          Songesthesia:
+          </label>
             {/* <select name='song_id' onChange={handleChange} value={formData.song_id}>
                 <option value={song.id}>{song.song_name}</option>
             </select> */}
@@ -116,7 +118,7 @@ const EntryForm = ( { isEdit, emptyForm, entries, animals, smells, tastes, songs
             <Select value={formData.color_id} handleChange={handleChange} things={colors} thingId={'color_id'} thingName={'color'} />
             <Select value={formData.smell_id} handleChange={handleChange} things={smells} thingId={'smell_id'} thingName={'smell'} />
             <Select value={formData.taste_id} handleChange={handleChange} things={tastes} thingId={'taste_id'} thingName={'taste'} />
-        </label>
+
         <input type="submit" value="Submit" />
       </form>
     )
