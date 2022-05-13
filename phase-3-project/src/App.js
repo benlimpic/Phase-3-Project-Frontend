@@ -7,7 +7,7 @@ import Header from './Components/Header';
 
 function App() {
 
-  const [song, setSong] = useState([])
+  const [songs, setSongs] = useState([])
   const [entries, setEntries] = useState([])
   const [animals, setAnimals] = useState([])
   const [smells, setSmells] = useState([])
@@ -24,23 +24,20 @@ function App() {
   }
 
   const [formData, setFormData] = useState(emptyForm)
-  const [editForm, setEditForm] = useState(emptyForm)
-
+ 
 
   useEffect(() => {
     console.log(entries)
   }, [entries])
 
-  useEffect(() => {
-    console.log(editForm)
-  }, [editForm])
 
-
-  useEffect(() => {
+  const getEntries = () => {
     fetch('http://localhost:9292/entries')
     .then(resp => resp.json())
     .then(data => setEntries(data))
-  }, [])
+  }
+
+  useEffect(() => getEntries, [])
 
 
   useEffect(() => {
@@ -51,9 +48,9 @@ function App() {
 
 
   useEffect(() => {
-    fetch('http://localhost:9292/song')
+    fetch('http://localhost:9292/songs')
     .then(resp => resp.json())
-    .then(data => setSong(data))
+    .then(data => setSongs(data))
   }, [])
 
   useEffect(() => {
@@ -87,48 +84,35 @@ function App() {
     if (!isEdit) {
       setIsEdit(true)
       setFormData(entryObj)
-  } else {
-    setEditForm(entryObj)
   }
 }
 
-
   useEffect(() => {
-    
     console.log(formData)
   }, [formData])
 
-
-
-  // const exitEditMode = () => {
-  //   if (isEdit) {
-  //     setIsEdit(false)
-  //   }
-  // }
 
 
   return (
     <div className="App">
       <Header />
       <EntryForm 
-        song={song} 
+        songs={songs} 
         animals={animals} 
         smells={smells} 
         tastes={tastes} 
         colors={colors} 
         addNewEntry={addNewEntry}
-        entries={entries}
-        emptyForm={emptyForm}
         isEdit={isEdit}
         formData={formData}
-        editForm={editForm}
         setFormData={setFormData}
+        getEntries={getEntries}
+        setIsEdit={setIsEdit}
         /> 
       <EntryTable 
         entries={entries} 
         deleteEntry={deleteEntry} 
         enterEditMode={enterEditMode} 
-        // formState={formState}
          />
     </div>
   );
