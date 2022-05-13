@@ -1,9 +1,8 @@
 import './App.css';
 import { useState, useEffect } from 'react'
 import EntryForm from './Components/EntryForm';
-import EntryFormEdit from './Components/EntryFormEdit';
 import EntryTable from './Components/EntryTable';
-import Header from './Components/Header';
+
 
 function App() {
 
@@ -25,11 +24,9 @@ function App() {
 
   const [formData, setFormData] = useState(emptyForm)
  
-
-  useEffect(() => {
-    console.log(entries)
-  }, [entries])
-
+  // useEffect(() => {
+  //   console.log(entries)
+  // }, [entries])
 
   const getEntries = () => {
     fetch('http://localhost:9292/entries')
@@ -87,15 +84,13 @@ function App() {
   }
 }
 
-  useEffect(() => {
-    console.log(formData)
-  }, [formData])
-
+  // useEffect(() => {
+  //   console.log(formData)
+  // }, [formData])
 
 
   return (
     <div className="App">
-      <Header />
       <EntryForm 
         songs={songs} 
         animals={animals} 
