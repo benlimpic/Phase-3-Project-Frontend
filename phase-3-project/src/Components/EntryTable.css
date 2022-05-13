@@ -1,0 +1,30 @@
+table {
+    border-spacing: 1px;
+    border-radius: 10px;
+    width: 100%;
+    background-color: rgba(140, 130, 130, 0.317);
+  }
+  
+
+  
+  th {
+      background-color: #101d19;
+      color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 20px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+    text-align: center;
+    padding: 20px;
+  }
+
+  tr:nth-child(odd) {
+    background: #4AC29A;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, 04AA6D, #4AC29A);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #04AA6D, #4AC29A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    text-align: center;
+    padding: 16px;
+  }
+  
